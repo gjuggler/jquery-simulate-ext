@@ -417,19 +417,22 @@
 	};
 	
 	
-		
-	
-	//####### Quirk detection #######
-	// delayedSpacesInNonInputGlitchToEnd
-	$(document).ready(function() {
-		/* Append a div to the document (bililiteRange needs the element to be in the document), simulate
-		 * a delayed sequence containing a space in the middle and check if the space moves to the end.
-		 */
-		var testDiv = $('<div/>').css({height: 1, width: 1, position: 'absolute', left: -1000, top: -1000}).appendTo('body');
-		testDiv.simulate('key-sequence', {sequence: '\xA0 \xA0', delay:1, callback: function() {
-			quirks.delayedSpacesInNonInputGlitchToEnd = (testDiv.text().indexOf(' ') > 1);
-			testDiv.remove();
-		}});
-	});
+  // Paperpile change: don't do quirk detection, since it messes with DOM.			
+  var detectQuirks = false;
+
+  if (detectQuirks) {
+	  //####### Quirk detection #######
+	  // delayedSpacesInNonInputGlitchToEnd
+	  $(document).ready(function() {
+		  /* Append a div to the document (bililiteRange needs the element to be in the document), simulate
+		   * a delayed sequence containing a space in the middle and check if the space moves to the end.
+		   */
+		  var testDiv = $('<div/>').css({height: 1, width: 1, position: 'absolute', left: -1000, top: -1000}).appendTo('body');
+		  testDiv.simulate('key-sequence', {sequence: '\xA0 \xA0', delay:1, callback: function() {
+			  quirks.delayedSpacesInNonInputGlitchToEnd = (testDiv.text().indexOf(' ') > 1);
+			  testDiv.remove();
+		  }});
+	  });
+  }
 
 })(jQuery);
